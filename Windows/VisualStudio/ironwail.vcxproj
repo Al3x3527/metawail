@@ -23,6 +23,7 @@
     <RootNamespace>ironwail</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <ProjectName>metawail</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -418,7 +419,9 @@ copy "$(SolutionDir)..\zlib\$(PlatformShortName)\*.dll" "$(TargetDir)"</Command>
     <ResourceCompile Include="..\QuakeSpasm.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="ironwail.natvis" />
+    <Natvis Include="metawail.natvis">
+      <SubType>Designer</SubType>
+    </Natvis>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\Quake\ironwail.pak">
