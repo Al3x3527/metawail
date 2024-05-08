@@ -21,6 +21,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 // sbar.c -- status bar code
 
+//test commit
+
 #include "quakedef.h"
 
 static int		sb_updates;		// if >= vid.numpages, no update needed
