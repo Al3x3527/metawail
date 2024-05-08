@@ -486,11 +486,11 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="..\..\Quake\ironwail.pak">
-      <Filter>Resource Files</Filter>
-    </CopyFileToFolders>
+    <Natvis Include="metawail.natvis" />
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="metawail.natvis" />
+    <CopyFileToFolders Include="..\..\Quake\metawail.pak">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

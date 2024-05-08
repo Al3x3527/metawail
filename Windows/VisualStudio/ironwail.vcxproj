@@ -424,7 +424,7 @@ copy "$(SolutionDir)..\zlib\$(PlatformShortName)\*.dll" "$(TargetDir)"</Command>
     </Natvis>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="..\..\Quake\ironwail.pak">
+    <CopyFileToFolders Include="..\..\Quake\metawail.pak">
       <FileType>Document</FileType>
     </CopyFileToFolders>
   </ItemGroup>
