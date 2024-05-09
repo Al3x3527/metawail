@@ -61,6 +61,8 @@ static qpic_t		*rsb_items[2];
 static qpic_t		*rsb_ammo[3];
 static qpic_t		*rsb_teambord;		// PGM 01/19/97 - team color border
 
+static qpic_t *sb_TURTLE; //test
+
 //MED 01/04/97 added two more weapons + 3 alternates for grenade launcher
 static qpic_t		*hsb_weapons[7][5];   // 0 is active, 1 is owned, 2-5 are flashes
 //MED 01/04/97 added array to simplify weapon parsing
@@ -199,6 +201,8 @@ void Sbar_LoadPics (void)
 	sb_ibar = Draw_PicFromWad ("ibar");
 	sb_scorebar = Draw_PicFromWad ("scorebar");
 
+	sb_TURTLE = Draw_PicFromWad ("turtle"); //test
+
 //MED 01/04/97 added new hipnotic weapons
 	if (hipnotic)
 	{
@@ -270,10 +274,13 @@ void Sbar_Init (void)
 // drawing routines are relative to the status bar location
 
 /*
+
+
 =============
 Sbar_DrawPic -- johnfitz -- rewritten now that GL_SetCanvas is doing the work
 =============
 */
+
 void Sbar_DrawPic (int x, int y, qpic_t *pic)
 {
 	Draw_Pic (x, y + 24, pic);
@@ -1019,6 +1026,7 @@ void Sbar_DrawInventoryQW (void)
 /*
 ===============
 Sbar_DrawInventory2
+modern1 and modern2, full and mini HUD
 ===============
 */
 void Sbar_DrawInventory2 (void)
@@ -1772,7 +1780,7 @@ void Sbar_Draw (void)
 		if (cl.gametype == GAME_DEATHMATCH)
 				Sbar_MiniDeathmatchOverlay ();
 	}
-	else
+	else //MODERN HUD ===============================================================================
 	{
 		if (sb_showscores || cl.stats[STAT_HEALTH] <= 0)
 		{
@@ -1797,6 +1805,8 @@ void Sbar_Draw (void)
 			}
 
 			x = (int)(glcanvas.right - SBAR2_MARGIN_X - 24 + 0.5f);
+			// TURTLE 
+			Sbar_DrawPic(x, y - 32, sb_TURTLE);
 			pic = Sbar_AmmoPic ();
 			if (pic)
 			{
