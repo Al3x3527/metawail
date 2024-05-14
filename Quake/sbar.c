@@ -203,7 +203,7 @@ void Sbar_LoadPics (void)
 	sb_scorebar = Draw_PicFromWad ("scorebar");
 
 	sb_TURTLE = Draw_PicFromWad ("turtle"); //test
-	SHIELDS = Draw_PicFromWad("shields");
+	SHIELDS = Draw_CachePic("gfx/shields.lmp");
 
 //MED 01/04/97 added new hipnotic weapons
 	if (hipnotic)
