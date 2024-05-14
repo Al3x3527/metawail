@@ -1623,6 +1623,7 @@ void Sbar_Draw (void)
 {
 	qboolean invuln;
 	int armor;
+	int coin;
 	float x, y, w, h; //johnfitz
 	qpic_t *pic;
 
@@ -1779,8 +1780,9 @@ void Sbar_Draw (void)
 		if (cl.gametype == GAME_DEATHMATCH)
 			Sbar_MiniDeathmatchOverlay();
 	} 
-	else if (hudstyle == HUD_METAMOD) //ALEX HUD
+	else if (hudstyle == HUD_METAMOD) //=======================================================ALEX HUD
 	{
+		coin = cl.stats[STAT_COIN];
 		if (sb_showscores || cl.stats[STAT_HEALTH] <= 0)
 		{
 			GL_SetCanvas(CANVAS_SBAR); //johnfitz
@@ -1794,7 +1796,7 @@ void Sbar_Draw (void)
 			x = (int)(glcanvas.left + SBAR2_MARGIN_X + 0.5f);
 			y = (int)(glcanvas.bottom - SBAR2_MARGIN_Y - 48 + 0.5f);
 			Sbar_DrawPic(x, y, SHIELDS);
-			Sbar_DrawNum(x + 32, y, cl.stats[STAT_HEALTH], 3, cl.stats[STAT_HEALTH] <= 25);
+			//Sbar_DrawNum(x + 32, y, cl.stats[STAT_HEALTH], 3, cl.stats[STAT_HEALTH] <= 25);
 
 			if (armor > 0)
 			{
@@ -1804,8 +1806,10 @@ void Sbar_Draw (void)
 
 			x = (int)(glcanvas.right - SBAR2_MARGIN_X - 24 + 0.5f);
 			// TURTLE 
-			Sbar_DrawPic(x, y - 32, sb_TURTLE);
+			//Sbar_DrawPic(x, y - 32, sb_TURTLE);
 			pic = Sbar_AmmoPic();
+			//points
+			Sbar_DrawNum(x - 48, y - 24, coin, 3, 0);
 			if (pic)
 			{
 				Sbar_DrawPic(x, y, pic);

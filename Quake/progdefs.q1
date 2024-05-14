@@ -97,6 +97,7 @@ typedef struct
 	float	ammo_nails;
 	float	ammo_rockets;
 	float	ammo_cells;
+	float	coin;
 	float	items;
 	float	takedamage;
 	int	chain;
