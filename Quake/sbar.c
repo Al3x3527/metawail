@@ -62,6 +62,7 @@ static qpic_t		*rsb_ammo[3];
 static qpic_t		*rsb_teambord;		// PGM 01/19/97 - team color border
 
 static qpic_t *sb_TURTLE; //test
+static qpic_t *SHIELDS;
 
 //MED 01/04/97 added two more weapons + 3 alternates for grenade launcher
 static qpic_t		*hsb_weapons[7][5];   // 0 is active, 1 is owned, 2-5 are flashes
@@ -202,6 +203,7 @@ void Sbar_LoadPics (void)
 	sb_scorebar = Draw_PicFromWad ("scorebar");
 
 	sb_TURTLE = Draw_PicFromWad ("turtle"); //test
+	SHIELDS = Draw_PicFromWad("shields");
 
 //MED 01/04/97 added new hipnotic weapons
 	if (hipnotic)
@@ -1791,7 +1793,7 @@ void Sbar_Draw (void)
 
 			x = (int)(glcanvas.left + SBAR2_MARGIN_X + 0.5f);
 			y = (int)(glcanvas.bottom - SBAR2_MARGIN_Y - 48 + 0.5f);
-			Sbar_DrawPic(x, y, Sbar_FacePic());
+			Sbar_DrawPic(x, y, SHIELDS);
 			Sbar_DrawNum(x + 32, y, cl.stats[STAT_HEALTH], 3, cl.stats[STAT_HEALTH] <= 25);
 
 			if (armor > 0)
@@ -1843,8 +1845,6 @@ void Sbar_Draw (void)
 			}
 
 			x = (int)(glcanvas.right - SBAR2_MARGIN_X - 24 + 0.5f);
-			// TURTLE 
-			//Sbar_DrawPic(x, y - 32, sb_TURTLE);
 			pic = Sbar_AmmoPic ();
 			if (pic)
 			{
