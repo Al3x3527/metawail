@@ -56,14 +56,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define	QUAKESPASM_VER_STRING	QS_STRINGIFY(QUAKESPASM_VERSION) "." QS_STRINGIFY(QUAKESPASM_VER_PATCH) QUAKESPASM_VER_SUFFIX
 #define	IRONWAIL_VER_STRING		QS_STRINGIFY(IRONWAIL_VER_MAJOR) "." QS_STRINGIFY(IRONWAIL_VER_MINOR) "." QS_STRINGIFY(IRONWAIL_VER_PATCH) IRONWAIL_VER_SUFFIX
 
-#define CONSOLE_TITLE_STRING	"Ironwail " IRONWAIL_VER_STRING
-#define WINDOW_TITLE_STRING		"Quake/Ironwail " IRONWAIL_VER_STRING
-#define CONFIG_NAME				"ironwail.cfg"
-#define SCREENSHOT_PREFIX		"ironwail"
+#define CONSOLE_TITLE_STRING	"Metawail " IRONWAIL_VER_STRING
+#define WINDOW_TITLE_STRING		"Quake/Metawail " IRONWAIL_VER_STRING
+#define CONFIG_NAME				"metawail.cfg"
+#define SCREENSHOT_PREFIX		"metawail"
 #define ENGINE_PAK				"ironwail.pak"
-#define ENGINE_USERDIR_WIN		"Ironwail"
-#define ENGINE_USERDIR_OSX		"Ironwail"
-#define ENGINE_USERDIR_UNIX		".ironwail"
+#define ENGINE_USERDIR_WIN		"Metawail"
+#define ENGINE_USERDIR_OSX		"Metawail"
+#define ENGINE_USERDIR_UNIX		".metawail"
 
 //define	PARANOID			// speed sapping error checking
 

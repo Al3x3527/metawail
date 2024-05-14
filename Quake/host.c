@@ -1085,7 +1085,7 @@ static void CL_LoadCSProgs (void)
 			if (qcvm->extfuncs.CSQC_Init)
 			{
 				G_FLOAT (OFS_PARM0) = false;
-				G_INT (OFS_PARM1) = PR_SetEngineString ("Ironwail");
+				G_INT (OFS_PARM1) = PR_SetEngineString ("Metawail");
 				G_FLOAT (OFS_PARM2) = 10000 * IRONWAIL_VER_MAJOR + 100 * IRONWAIL_VER_MINOR + IRONWAIL_VER_PATCH;
 				PR_ExecuteProgram (qcvm->extfuncs.CSQC_Init);
 			}
