@@ -65,6 +65,7 @@ void SV_CalcStats(client_t *client, int *statsi, float *statsf, const char **sta
 	statsf[STAT_ROCKETS] = ent->v.ammo_rockets;
 	statsf[STAT_CELLS] = ent->v.ammo_cells;
 	statsf[STAT_ACTIVEWEAPON] = ent->v.weapon;	//sent in a way that does NOT depend upon the current mod...
+	statsf[STAT_COIN] = ent->v.coin; //ALEX
 
 	//FIXME: add support for clientstat/globalstat qc builtins.
 
@@ -1083,6 +1084,7 @@ void SV_WriteClientdataToMessage (edict_t *ent, sizebuf_t *msg)
 		if ((int)ent->v.ammo_cells & 0xFF00) bits |= SU_CELLS2;
 		if (bits & SU_WEAPONFRAME && (int)ent->v.weaponframe & 0xFF00) bits |= SU_WEAPONFRAME2;
 		if (bits & SU_WEAPON && ent->alpha != ENTALPHA_DEFAULT) bits |= SU_WEAPONALPHA; //for now, weaponalpha = client entity alpha
+		if ((int)ent->v.coin & 0xFF00) bits |= SU_COIN; //ALEX
 		if (bits >= 65536) bits |= SU_EXTEND1;
 		if (bits >= 16777216) bits |= SU_EXTEND2;
 	}
@@ -1165,6 +1167,8 @@ void SV_WriteClientdataToMessage (edict_t *ent, sizebuf_t *msg)
 	if (bits & SU_WEAPONALPHA)
 		MSG_WriteByte (msg, ent->alpha); //for now, weaponalpha = client entity alpha
 	//johnfitz
+	if (bits & SU_COIN)
+		MSG_WriteByte(msg, (int)ent->v.coin >> 8); //ALEX
 
 	// Hack: Alkaline 1.1 uses bit flags to store the active weapon,
 	// but we only send the stat as a byte, which can lead to truncation.
