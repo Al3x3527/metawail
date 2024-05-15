@@ -391,8 +391,8 @@ void Sbar_DrawNum (int x, int y, int num, int digits, int color)
 	char	*ptr;
 	int	l, frame;
 
-	num = q_min(999,num); //johnfitz -- cap high values rather than truncating number
-
+	num = q_min(9999,num); //johnfitz -- cap high values rather than truncating number
+							//ALEX increased max to 9999
 	l = Sbar_itoa (num, str);
 	ptr = str;
 	if (l > digits)
@@ -1782,7 +1782,7 @@ void Sbar_Draw (void)
 	} 
 	else if (hudstyle == HUD_METAMOD) //=======================================================ALEX HUD
 	{
-		coin = cl.stats[STAT_COIN];
+		coin = cl.stats[STAT_COIN] * 50;
 		if (sb_showscores || cl.stats[STAT_HEALTH] <= 0)
 		{
 			GL_SetCanvas(CANVAS_SBAR); //johnfitz
@@ -1809,7 +1809,7 @@ void Sbar_Draw (void)
 			//Sbar_DrawPic(x, y - 32, sb_TURTLE);
 			pic = Sbar_AmmoPic();
 			//points
-			Sbar_DrawNum(x - 48, y - 24, coin, 3, 0);
+			Sbar_DrawNum(x - 64, y - 24, coin, 4, 0);
 			if (pic)
 			{
 				Sbar_DrawPic(x, y, pic);
