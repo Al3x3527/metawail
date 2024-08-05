@@ -60,7 +60,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define WINDOW_TITLE_STRING		"Quake/Metawail " IRONWAIL_VER_STRING
 #define CONFIG_NAME				"metawail.cfg"
 #define SCREENSHOT_PREFIX		"metawail"
+
 #define ENGINE_PAK				"metawail.pak" 
+
 #define ENGINE_USERDIR_WIN		"Metawail"
 #define ENGINE_USERDIR_OSX		"Metawail"
 #define ENGINE_USERDIR_UNIX		".metawail"
