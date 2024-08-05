@@ -60,7 +60,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define WINDOW_TITLE_STRING		"Quake/Metawail " IRONWAIL_VER_STRING
 #define CONFIG_NAME				"metawail.cfg"
 #define SCREENSHOT_PREFIX		"metawail"
-#define ENGINE_PAK				"ironwail.pak"
+
+#define ENGINE_PAK				"metawail.pak" 
+
 #define ENGINE_USERDIR_WIN		"Metawail"
 #define ENGINE_USERDIR_OSX		"Metawail"
 #define ENGINE_USERDIR_UNIX		".metawail"
@@ -137,6 +139,7 @@ typedef enum
 	STAT_SECRETS		= 13,	// bumped on client side by svc_foundsecret
 	STAT_MONSTERS		= 14,	// bumped by svc_killedmonster
 	STAT_ITEMS			= 15,	//replaces clc_clientdata info
+	STAT_COIN			= 16,	// ALEX if max coins = 256, multiply by 50 for funner number
 } stat_t;
 
 // stock defines

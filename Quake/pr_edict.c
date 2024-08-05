@@ -1984,6 +1984,7 @@ qboolean PR_LoadProgs (const char *filename, qboolean fatal)
 		}
 	}
 
+	/*
 	if (qcvm->progs->crc != PROGHEADER_CRC)
 	{
 		if (fatal)
@@ -2021,7 +2022,7 @@ qboolean PR_LoadProgs (const char *filename, qboolean fatal)
 			return false;
 		}
 	}
-
+	*/
 	qcvm->functions = (dfunction_t *)((byte *)qcvm->progs + qcvm->progs->ofs_functions);
 	qcvm->strings = (char *)qcvm->progs + qcvm->progs->ofs_strings;
 	if (qcvm->progs->ofs_strings + qcvm->progs->numstrings >= com_filesize)

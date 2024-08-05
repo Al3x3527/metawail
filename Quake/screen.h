@@ -100,6 +100,7 @@ typedef enum hudstyle_t
 	HUD_MODERN_CENTERAMMO,		// Modern 1
 	HUD_MODERN_SIDEAMMO,		// Modern 2
 	HUD_QUAKEWORLD,
+	HUD_METAMOD,				//ALEX
 
 	HUD_COUNT,
 } hudstyle_t;

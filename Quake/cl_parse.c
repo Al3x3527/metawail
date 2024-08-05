@@ -858,10 +858,15 @@ void CL_ParseClientdata (void)
 		cl.stats[STAT_CELLS] |= (MSG_ReadByte() << 8);
 	if (bits & SU_WEAPONFRAME2)
 		cl.stats[STAT_WEAPONFRAME] |= (MSG_ReadByte() << 8);
+	//trying this syntax
+	if (bits & SU_COIN)
+		cl.stats[STAT_COIN] |= (MSG_ReadByte() << 8);
+
 	if (bits & SU_WEAPONALPHA)
 		cl.viewent.alpha = MSG_ReadByte();
 	else
 		cl.viewent.alpha = ENTALPHA_DEFAULT;
+	
 	//johnfitz
 
 	CL_SetHudStat (STAT_WEAPONFRAME);
@@ -874,6 +879,7 @@ void CL_ParseClientdata (void)
 	CL_SetHudStat (STAT_NAILS);
 	CL_SetHudStat (STAT_ROCKETS);
 	CL_SetHudStat (STAT_CELLS);
+	CL_SetHudStat(STAT_COIN); //ALEX
 
 	//johnfitz -- lerping
 	//ericw -- this was done before the upper 8 bits of cl.stats[STAT_WEAPON] were filled in, breaking on large maps like zendar.bsp

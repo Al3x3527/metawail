@@ -61,6 +61,9 @@ static qpic_t		*rsb_items[2];
 static qpic_t		*rsb_ammo[3];
 static qpic_t		*rsb_teambord;		// PGM 01/19/97 - team color border
 
+static qpic_t *sb_TURTLE; //test
+static qpic_t *SHIELDS;
+
 //MED 01/04/97 added two more weapons + 3 alternates for grenade launcher
 static qpic_t		*hsb_weapons[7][5];   // 0 is active, 1 is owned, 2-5 are flashes
 //MED 01/04/97 added array to simplify weapon parsing
@@ -199,6 +202,9 @@ void Sbar_LoadPics (void)
 	sb_ibar = Draw_PicFromWad ("ibar");
 	sb_scorebar = Draw_PicFromWad ("scorebar");
 
+	sb_TURTLE = Draw_PicFromWad ("turtle"); //test
+	SHIELDS = Draw_CachePic("gfx/shields.lmp");
+
 //MED 01/04/97 added new hipnotic weapons
 	if (hipnotic)
 	{
@@ -270,10 +276,13 @@ void Sbar_Init (void)
 // drawing routines are relative to the status bar location
 
 /*
+
+
 =============
 Sbar_DrawPic -- johnfitz -- rewritten now that GL_SetCanvas is doing the work
 =============
 */
+
 void Sbar_DrawPic (int x, int y, qpic_t *pic)
 {
 	Draw_Pic (x, y + 24, pic);
@@ -382,8 +391,8 @@ void Sbar_DrawNum (int x, int y, int num, int digits, int color)
 	char	*ptr;
 	int	l, frame;
 
-	num = q_min(999,num); //johnfitz -- cap high values rather than truncating number
-
+	num = q_min(9999,num); //johnfitz -- cap high values rather than truncating number
+							//ALEX increased max to 9999
 	l = Sbar_itoa (num, str);
 	ptr = str;
 	if (l > digits)
@@ -1019,6 +1028,7 @@ void Sbar_DrawInventoryQW (void)
 /*
 ===============
 Sbar_DrawInventory2
+modern1 and modern2, full and mini HUD
 ===============
 */
 void Sbar_DrawInventory2 (void)
@@ -1613,6 +1623,7 @@ void Sbar_Draw (void)
 {
 	qboolean invuln;
 	int armor;
+	int coin;
 	float x, y, w, h; //johnfitz
 	qpic_t *pic;
 
@@ -1690,18 +1701,17 @@ void Sbar_Draw (void)
 
 	if (hudstyle == HUD_CLASSIC || hudstyle == HUD_QUAKEWORLD)
 	{
-		GL_SetCanvas (CANVAS_SBAR); //johnfitz
+		GL_SetCanvas(CANVAS_SBAR); //johnfitz
 
 		if (hudstyle == HUD_CLASSIC)	//classic hud
 		{
 			if (scr_viewsize.value < 110) //johnfitz -- check viewsize instead of sb_lines
 			{
-				Sbar_DrawInventory ();
+				Sbar_DrawInventory();
 				if (cl.maxclients != 1)
-					Sbar_DrawFrags ();
+					Sbar_DrawFrags();
 			}
-		}
-		else	//qw hud
+		} else	//qw hud
 		{
 			if (scr_viewsize.value < 120)
 			{
@@ -1720,59 +1730,101 @@ void Sbar_Draw (void)
 
 		if (sb_showscores || cl.stats[STAT_HEALTH] <= 0)
 		{
-			Sbar_DrawPicAlpha (0, 0, sb_scorebar, scr_sbaralpha.value); //johnfitz -- scr_sbaralpha
-			Sbar_DrawScoreboard ();
+			Sbar_DrawPicAlpha(0, 0, sb_scorebar, scr_sbaralpha.value); //johnfitz -- scr_sbaralpha
+			Sbar_DrawScoreboard();
 			sb_updates = 0;
-		}
-		else if (scr_viewsize.value < 120) //johnfitz -- check viewsize instead of sb_lines
+		} else if (scr_viewsize.value < 120) //johnfitz -- check viewsize instead of sb_lines
 		{
 			if (hudstyle == HUD_CLASSIC)
-				Sbar_DrawPicAlpha (0, 0, sb_sbar, scr_sbaralpha.value); //johnfitz -- scr_sbaralpha
+				Sbar_DrawPicAlpha(0, 0, sb_sbar, scr_sbaralpha.value); //johnfitz -- scr_sbaralpha
 
 	   // keys (hipnotic only)
 			//MED 01/04/97 moved keys here so they would not be overwritten
 			if (hipnotic)
 			{
 				if (cl.items & IT_KEY1)
-					Sbar_DrawPic (209, 3, sb_items[0]);
+					Sbar_DrawPic(209, 3, sb_items[0]);
 				if (cl.items & IT_KEY2)
-					Sbar_DrawPic (209, 12, sb_items[1]);
+					Sbar_DrawPic(209, 12, sb_items[1]);
 			}
-		// armor
+			// armor
 			if (cl.items & IT_INVULNERABILITY)
 			{
-				Sbar_DrawNum (24, 0, 666, 3, 1);
-				Sbar_DrawPic (0, 0, draw_disc);
-			}
-			else
+				Sbar_DrawNum(24, 0, 666, 3, 1);
+				Sbar_DrawPic(0, 0, draw_disc);
+			} else
 			{
-				Sbar_DrawNum (24, 0, cl.stats[STAT_ARMOR], 3, cl.stats[STAT_ARMOR] <= 25);
-				pic = Sbar_ArmorPic ();
+				Sbar_DrawNum(24, 0, cl.stats[STAT_ARMOR], 3, cl.stats[STAT_ARMOR] <= 25);
+				pic = Sbar_ArmorPic();
 				if (pic)
-					Sbar_DrawPic (0, 0, pic);
+					Sbar_DrawPic(0, 0, pic);
 			}
 
-		// face
-			Sbar_DrawFace ();
+			// face
+			Sbar_DrawFace();
 
-		// health
-			Sbar_DrawNum (136, 0, cl.stats[STAT_HEALTH], 3
-			, cl.stats[STAT_HEALTH] <= 25);
+			// health
+			Sbar_DrawNum(136, 0, cl.stats[STAT_HEALTH], 3
+				, cl.stats[STAT_HEALTH] <= 25);
 
-		// ammo icon
-			pic = Sbar_AmmoPic ();
+			// ammo icon
+			pic = Sbar_AmmoPic();
 			if (pic)
-				Sbar_DrawPic (224, 0, pic);
+				Sbar_DrawPic(224, 0, pic);
 
-			Sbar_DrawNum (248, 0, cl.stats[STAT_AMMO], 3,
-						  cl.stats[STAT_AMMO] <= 10);
+			Sbar_DrawNum(248, 0, cl.stats[STAT_AMMO], 3,
+				cl.stats[STAT_AMMO] <= 10);
 		}
 
 		//johnfitz -- removed the vid.width > 320 check here
 		if (cl.gametype == GAME_DEATHMATCH)
-				Sbar_MiniDeathmatchOverlay ();
+			Sbar_MiniDeathmatchOverlay();
+	} 
+	else if (hudstyle == HUD_METAMOD) //=======================================================ALEX HUD
+	{
+		coin = cl.stats[STAT_COIN] * 50;
+		if (sb_showscores || cl.stats[STAT_HEALTH] <= 0)
+		{
+			GL_SetCanvas(CANVAS_SBAR); //johnfitz
+			Sbar_DrawPicAlpha(0, 0, sb_scorebar, scr_sbaralpha.value); //johnfitz -- scr_sbaralpha
+			Sbar_DrawScoreboard();
+			sb_updates = 0;
+		} else if (scr_viewsize.value < 120) //johnfitz -- check viewsize instead of sb_lines
+		{
+			GL_SetCanvas(CANVAS_SBAR2);
+
+			x = (int)(glcanvas.left + SBAR2_MARGIN_X + 0.5f);
+			y = (int)(glcanvas.bottom - SBAR2_MARGIN_Y - 48 + 0.5f);
+			Sbar_DrawPic(x, y, SHIELDS);
+			//Sbar_DrawNum(x + 32, y, cl.stats[STAT_HEALTH], 3, cl.stats[STAT_HEALTH] <= 25);
+
+			if (armor > 0)
+			{
+				Sbar_DrawNum(x + 32, y - 24, armor, 3, invuln || armor <= 25);
+				Sbar_DrawPic(x, y - 24, Sbar_ArmorPic());
+			}
+
+			x = (int)(glcanvas.right - SBAR2_MARGIN_X - 24 + 0.5f);
+			// TURTLE 
+			//Sbar_DrawPic(x, y - 32, sb_TURTLE);
+			pic = Sbar_AmmoPic();
+			//points
+			Sbar_DrawNum(x - 64, y - 24, coin, 4, 0);
+			if (pic)
+			{
+				Sbar_DrawPic(x, y, pic);
+				x -= 32;
+			}
+			Sbar_DrawNum(x - 48, y, cl.stats[STAT_AMMO], 3, cl.stats[STAT_AMMO] <= 10);
+
+			Sbar_DrawInventory2();
+			if (cl.maxclients != 1)
+				Sbar_DrawFrags2();
+		}
+
+		Sbar_DrawSigils();
 	}
-	else
+	else //MODERN HUD ===============================================================================
 	{
 		if (sb_showscores || cl.stats[STAT_HEALTH] <= 0)
 		{
