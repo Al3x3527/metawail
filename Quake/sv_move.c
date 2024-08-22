@@ -115,7 +115,8 @@ qboolean SV_movestep (edict_t *ent, vec3_t move, qboolean relink)
 	vec3_t		oldorg, neworg, end;
 	trace_t		trace;
 	int			i;
-	edict_t		*enemy;
+	//edict_t		*enemy;
+	edict_t		*waypoint;
 
 // try the move
 	VectorCopy (ent->v.origin, oldorg);
@@ -128,10 +129,13 @@ qboolean SV_movestep (edict_t *ent, vec3_t move, qboolean relink)
 		for (i=0 ; i<2 ; i++)
 		{
 			VectorAdd (ent->v.origin, move, neworg);
-			enemy = PROG_TO_EDICT(ent->v.enemy);
-			if (i == 0 && enemy != qcvm->edicts)
+			//enemy = PROG_TO_EDICT(ent->v.enemy);
+			waypoint = PROG_TO_EDICT(ent->v.waypoint);
+			//if (i == 0 && enemy != qcvm->edicts)
+			if (i == 0 && waypoint != qcvm->edicts)
 			{
-				dz = ent->v.origin[2] - PROG_TO_EDICT(ent->v.enemy)->v.origin[2];
+				//dz = ent->v.origin[2] - PROG_TO_EDICT(ent->v.enemy)->v.origin[2];
+				dz = ent->v.origin[2] - PROG_TO_EDICT(ent->v.waypoint)->v.origin[2];
 				if (dz > 40)
 					neworg[2] -= 8;
 				if (dz < 30)
@@ -150,7 +154,8 @@ qboolean SV_movestep (edict_t *ent, vec3_t move, qboolean relink)
 				return true;
 			}
 
-			if (enemy == qcvm->edicts)
+			//if (enemy == qcvm->edicts)
+			if (waypoint == qcvm->edicts)
 				break;
 		}
 
