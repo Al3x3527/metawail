@@ -112,6 +112,7 @@ typedef struct
 	float	idealpitch;
 	string_t	netname;
 	int	enemy;
+	int waypoint;
 	float	flags;
 	float	colormap;
 	float	team;

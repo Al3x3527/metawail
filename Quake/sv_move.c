@@ -116,6 +116,7 @@ qboolean SV_movestep (edict_t *ent, vec3_t move, qboolean relink)
 	trace_t		trace;
 	int			i;
 	edict_t		*enemy;
+	//edict_t		*waypoint;
 
 // try the move
 	VectorCopy (ent->v.origin, oldorg);
@@ -129,9 +130,12 @@ qboolean SV_movestep (edict_t *ent, vec3_t move, qboolean relink)
 		{
 			VectorAdd (ent->v.origin, move, neworg);
 			enemy = PROG_TO_EDICT(ent->v.enemy);
+			//waypoint = PROG_TO_EDICT(ent->v.waypoint);
 			if (i == 0 && enemy != qcvm->edicts)
+			//if (i == 0 && waypoint != qcvm->edicts)
 			{
 				dz = ent->v.origin[2] - PROG_TO_EDICT(ent->v.enemy)->v.origin[2];
+				//dz = ent->v.origin[2] - PROG_TO_EDICT(ent->v.waypoint)->v.origin[2];
 				if (dz > 40)
 					neworg[2] -= 8;
 				if (dz < 30)
@@ -151,6 +155,7 @@ qboolean SV_movestep (edict_t *ent, vec3_t move, qboolean relink)
 			}
 
 			if (enemy == qcvm->edicts)
+			//if (waypoint == qcvm->edicts)
 				break;
 		}
 
@@ -177,6 +182,7 @@ qboolean SV_movestep (edict_t *ent, vec3_t move, qboolean relink)
 	if (trace.fraction == 1)
 	{
 	// if monster had the ground pulled out, go ahead and fall
+		
 		if ( (int)ent->v.flags & FL_PARTIALGROUND )
 		{
 			VectorAdd (ent->v.origin, move, ent->v.origin);
@@ -188,6 +194,7 @@ qboolean SV_movestep (edict_t *ent, vec3_t move, qboolean relink)
 		}
 
 		return false;		// walked off an edge
+		
 	}
 
 // check point traces down for dangling corners
