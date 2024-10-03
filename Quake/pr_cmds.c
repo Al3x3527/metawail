@@ -781,17 +781,17 @@ static int PF_newcheckclient (int check)
 
 	if (check < 1)
 		check = 1;
-	if (check > svs.maxclients)
-		check = svs.maxclients;
+	if (check > MIN_EDICTS)//if (check > svs.maxclients)
+		check = MIN_EDICTS;//check = svs.maxclients;
 
-	if (check == svs.maxclients)
+	if (check == MIN_EDICTS)//if (check == svs.maxclients)
 		i = 1;
 	else
 		i = check + 1;
 
 	for ( ;  ; i++)
 	{
-		if (i == svs.maxclients+1)
+		if (i == MIN_EDICTS + 1)//if (i == svs.maxclients+1)
 			i = 1;
 
 		ent = EDICT_NUM(i);
