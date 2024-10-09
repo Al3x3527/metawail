@@ -1796,7 +1796,7 @@ void Sbar_Draw (void)
 			x = (int)(glcanvas.left + SBAR2_MARGIN_X + 0.5f);
 			y = (int)(glcanvas.bottom - SBAR2_MARGIN_Y - 48 + 0.5f);
 			Sbar_DrawPic(x, y, SHIELDS);
-			//Sbar_DrawNum(x + 32, y, cl.stats[STAT_HEALTH], 3, cl.stats[STAT_HEALTH] <= 25);
+			Sbar_DrawNum(x + 32, y, cl.stats[STAT_HEALTH], 3, cl.stats[STAT_HEALTH] <= 25);//comment out for shield bar only --ALEX
 
 			if (armor > 0)
 			{
