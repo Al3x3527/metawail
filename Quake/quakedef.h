@@ -57,15 +57,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // SDL version the code was compiled with
 #define Q_SDL_COMPILED_VERSION_STRING	QS_STRINGIFY(SDL_MAJOR_VERSION) "." QS_STRINGIFY(SDL_MINOR_VERSION) "." QS_STRINGIFY(SDL_PATCHLEVEL)
 
-#define CONSOLE_TITLE_STRING	"Ironwail " IRONWAIL_VER_STRING
-#define WINDOW_TITLE_STRING		"Quake/Ironwail " IRONWAIL_VER_STRING
-#define CONFIG_NAME				"ironwail.cfg"
-#define SCREENSHOT_PREFIX		"ironwail"
-#define ENGINE_PAK				"ironwail.pak"
-#define ENGINE_USERDIR_WIN		"Ironwail"
-#define ENGINE_USERDIR_OSX		"Ironwail"
-#define ENGINE_USERDIR_UNIX		".ironwail"
+#define CONSOLE_TITLE_STRING	"Metawail " IRONWAIL_VER_STRING
+#define WINDOW_TITLE_STRING		"Quake/Metawail " IRONWAIL_VER_STRING
+#define CONFIG_NAME				"metawail.cfg"
+#define SCREENSHOT_PREFIX		"metawail"
 
+#define ENGINE_PAK				"metawail.pak" 
+
+#define ENGINE_USERDIR_WIN		"Metawail"
+#define ENGINE_USERDIR_OSX		"Metawail"
+#define ENGINE_USERDIR_UNIX		".metawail"
 //define	PARANOID			// speed sapping error checking
 
 #define	GAMENAME	"id1"		// directory to look in by default
