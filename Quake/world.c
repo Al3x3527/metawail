@@ -479,6 +479,7 @@ void SV_LinkEdict (edict_t *ent, qboolean touch_triggers)
 
 // set the abs box
 // ROTATE START
+
 	if (ent->v.solid == SOLID_BSP &&
 		(ent->v.angles[0] || ent->v.angles[1] || ent->v.angles[2]) && ent != qcvm->edicts)
 	{ // expand for rotation
@@ -829,6 +830,7 @@ trace_t SV_ClipMoveToEntity (edict_t *ent, vec3_t start, vec3_t mins, vec3_t max
 	VectorSubtract (end, offset, end_l);
 
 	// ROTATE START
+	
 	// rotate start and end into the models frame of reference
 	if (ent->v.solid == SOLID_BSP &&
 		(ent->v.angles[0] || ent->v.angles[1] || ent->v.angles[2]) && ent != qcvm->edicts)
@@ -855,6 +857,7 @@ trace_t SV_ClipMoveToEntity (edict_t *ent, vec3_t start, vec3_t mins, vec3_t max
 	SV_RecursiveHullCheck (hull, hull->firstclipnode, 0, 1, start_l, end_l, &trace);
 
 	// ROTATE START
+	
 	// rotate endpos back to world frame of reference
 	if (ent->v.solid == SOLID_BSP &&
 		(ent->v.angles[0] || ent->v.angles[1] || ent->v.angles[2]) && ent != qcvm->edicts)
@@ -893,10 +896,10 @@ trace_t SV_ClipMoveToEntity (edict_t *ent, vec3_t start, vec3_t mins, vec3_t max
 	}
 #endif
 	// ROTATE END
-
+	
 // fix trace up by the offset
-	if (trace.fraction != 1)
-		VectorAdd (trace.endpos, offset, trace.endpos);
+//	if (trace.fraction != 1)
+//		VectorAdd (trace.endpos, offset, trace.endpos);
 
 // did we clip the move?
 	if (trace.fraction < 1 || trace.startsolid  )
