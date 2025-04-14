@@ -472,7 +472,28 @@ void SV_PushMove (edict_t *pusher, float movetime)
 
 // see if any solid entities are inside the final position
 	num_moved = 0;
-	check = NEXT_EDICT(qcvm->edicts);
+	//Alex's world colliding PushMove
+	if ((int)pusher->v.flags & FL_FLY)
+	{
+		trace_t trace;
+		check = qcvm->edicts;
+		trace = SV_Move(pusher->v.origin, pusher->v.mins, pusher->v.maxs, pusher->v.origin, 0, pusher);
+		if (trace.startsolid){
+		// if the pusher has a "blocked" function, call it
+			// otherwise, just stay in place until the obstacle is gone
+		if (pusher->v.blocked)
+		{
+			pr_global_struct->self = EDICT_TO_PROG(pusher);
+			pr_global_struct->other = EDICT_TO_PROG(check);
+			PR_ExecuteProgram(pusher->v.blocked);
+		}
+		Hunk_FreeToLowMark(mark); //johnfitz
+		return;
+		}
+		}
+	else 
+	//end world colliding PushMove
+		check = NEXT_EDICT(qcvm->edicts);
 	for (e=1 ; e<qcvm->num_edicts ; e++, check = NEXT_EDICT(check))
 	{
 		qboolean riding;
@@ -773,7 +794,7 @@ void SV_Physics_Pusher (edict_t *ent)
 		//ROTATE START
 		if ((ent->v.avelocity[0] || ent->v.avelocity[1] || ent->v.avelocity[2]) && ent->v.solid == SOLID_BSP)
 			SV_PushRotate(ent, host_frametime);
-		else
+		//else
 			//ROTATE END
 		SV_PushMove (ent, movetime);	// advances ent->v.ltime if not blocked
 	}
