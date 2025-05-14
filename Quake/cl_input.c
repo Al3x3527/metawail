@@ -270,13 +270,20 @@ void CL_AdjustAngles (void)
 	float	speed;
 	float	up, down;
 
-	if (CL_InCutscene ())
-		return;
-
 	if ((in_speed.state & 1) ^ (cl_alwaysrun.value != 0.0))
 		speed = host_frametime * cl_anglespeedkey.value;
 	else
 		speed = host_frametime;
+
+	if (CL_InCutscene ())
+	{	// moved from top of function --ALEX
+		//cl.viewangles[YAW] += speed * host_client->edict->v.avelocity[1];
+		cl.viewangles[YAW] += speed * sv_player->v.avelocity[1];
+		cl.viewangles[PITCH] += speed * sv_player->v.avelocity[0];
+		cl.viewangles[ROLL] += speed * sv_player->v.avelocity[2];
+		///
+		return;
+	}
 
 	if (!(in_strafe.state & 1))
 	{
